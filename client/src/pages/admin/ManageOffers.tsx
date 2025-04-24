@@ -13,7 +13,7 @@ interface Offer {
   type: string
   date: string
   price: number
-};
+}
 
 const initialOffers: Offer[] = [
   {
