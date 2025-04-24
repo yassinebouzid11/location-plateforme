@@ -159,7 +159,7 @@ export default function Carousel2() {
               className="w-[calc(100%/3)] flex-shrink-0 p-2 snap-start"
             >
               <div
-                className={`bg-white rounded-xl border shadow-2xl hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${item.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
+                className={` rounded-xl border shadow-2xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${item.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
               >
                 {item.isPlus ? (
                   <a href="/Offers" className="text-6xl font-bold text-primary cursor-pointer">

@@ -23,6 +23,7 @@ app.use(express.json());
 
 app.use("/auth", require('./routes/authRoutes'));
 app.use("/users", require('./routes/userRoutes'));
+app.use("/offer", require('./routes/offerRoutes'));
 
 
 
