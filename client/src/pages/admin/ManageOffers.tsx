@@ -66,7 +66,7 @@ export default function ManageOffers() {
   const [currentPage, setCurrentPage] = useState(1)
   
   const Navigate = useNavigate()
-  const ITEMS_PER_PAGE = 10
+  const ITEMS_PER_PAGE = 10;
 
   const filteredOffers = offers
     .filter((offer) =>
