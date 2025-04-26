@@ -3,27 +3,39 @@ const Offer=require("../models/Offer")
 // Create a new offer
 const createOffer = async (req, res) => {
     try {
-    const { titre, adresse, description, type, prix, images } = req.body;
-    
-    if (!titre || !adresse || !description || !type || !prix) {
-        return res.status(400).json({ message: 'Tous les champs sont requis.' });
-    }
-    const newOffer = new Offer({
-        titre,
-        adresse,
-        description,
-        type,
-        prix,
-        images,
-        proprietaire: req.user.id // id depuis le verifyJWT 
-    });
+        
 
-    await newOffer.save();
-    res.status(201).json({ message: "Offre créée avec succès", offer: newOffer });
-    } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la création de l'offre", error });
-    }
+        const { titre, adresse, description, type, prix } = req.body;
+        const files = req.files;
+    
+        if (!titre || !adresse || !description || !type || !prix) {
+            return res.status(400).json({ message: 'Tous les champs sont requis.' });
+        }
+    
+        const images = files.map((file) => ({
+            filename: file.originalname,
+            buffer: file.buffer,
+            mimetype: file.mimetype,
+        }));
+    
+        const newOffer = new Offer({
+            titre,
+            adresse,
+            description,
+            type,
+            prix,
+            images,
+            proprietaire: req.user.id,
+        });
+    
+        await newOffer.save();
+        res.status(201).json({ message: "Offre créée avec succès !", offer: newOffer });
+        } catch (error) {
+        console.error("Erreur createOffer:", error);
+        res.status(500).json({ message: "Erreur lors de la création de l'offre", error });
+        }
 };
+
 
 // Get all offers
 const getAllOffers = async (req, res) => {

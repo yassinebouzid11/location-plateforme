@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/co
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
+import axios from "axios"
+
 
 export default function CreateOfferForm() {
     const [title, setTitle] = useState("")
@@ -18,10 +20,62 @@ export default function CreateOfferForm() {
 
 
 const types = ["Chambre", "Studio", "S1", "S2", "S3", "S4", "S5"]
-
-    const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    const formData = new FormData()
+    formData.append("titre", title)
+    formData.append("adresse", adresse)
+    formData.append("description", discription)
+    formData.append("type", selectedType)
+    formData.append("prix", price)
+
+    images.forEach((image) => {
+        formData.append("images", image)
+    })
+
+    try {
+        const token = localStorage.getItem("token")
+
+        const response = await axios.post("http://localhost:5000/offer/create", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+        })
+
+        console.log("Success:", response.data)
+    } catch (error: any) {
+        alert("Erreur : " + (error.response?.data?.message || "Une erreur est survenue."))
     }
+    }
+
+
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault()
+    //     try {
+    //         const offerData ={
+    //             titre:title,
+    //             adresse,
+    //             description:discription,
+    //             type:selectedType,
+    //             prix:price,
+    //             images:images,
+    //         }
+    //         const token = localStorage.getItem("token") 
+    //         const response= await axios.post("http://localhost:5000/offer/create",offerData,{headers:{Authorization:`Bearer ${token}`}})
+    //         console.log(response.data)
+    //     } catch (error: any) {
+    //         if (error.response) {
+    //             alert("Erreur : " + (error.response.data.message || "Une erreur est survenue."))
+    //         } else {
+    //             alert("Erreur réseau. Veuillez réessayer plus tard.")
+    //         } 
+    //     }
+    // }
+
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const selectedFiles = Array.from(e.target.files)
@@ -108,15 +162,15 @@ const types = ["Chambre", "Studio", "S1", "S2", "S3", "S4", "S5"]
                     />
                 </div>
                 <div className="flex flex-wrap gap-2 mt-2">
-  {images.map((image, index) => (
-    <img
-      key={index}
-      src={URL.createObjectURL(image)}
-      alt={`Preview ${index}`}
-      className="w-24 h-24 object-cover rounded-md shadow"
-    />
-  ))}
-</div>
+                {images.map((image, index) => (
+                    <img
+                    key={index}
+                    src={URL.createObjectURL(image)}
+                    alt={`Preview ${index}`}
+                    className="w-24 h-24 object-cover rounded-md shadow"
+                    />
+                ))}
+                </div>
 
                 <div className="text-sm font-medium text-destructive"></div>
             </CardContent>

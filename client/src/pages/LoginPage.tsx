@@ -6,16 +6,40 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-
+  const navigate=useNavigate()
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-  }
-
+    e.preventDefault();
+  
+    const loginData = {
+      email,
+      password,
+    }
+    try {
+      const response = await axios.post("http://localhost:5000/auth/login",loginData);
+  
+      console.log("Login successful:", response.data);
+      
+      const { accessToken, email, id } = response.data
+      localStorage.setItem("token", accessToken)
+      localStorage.setItem("user", JSON.stringify({ email, id }))
+      // Redirect or store auth info here (e.g., navigate to dashboard)
+      navigate("/")
+    } catch (error: any) {
+      if (error.response && error.response.data?.message) {
+        alert("Erreur : " + error.response.data.message);
+      } else {
+        alert("Erreur réseau. Veuillez réessayer plus tard.");
+      }
+    }
+  };
+  
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
       <Card className="overflow-hidden w-[70%] max-w-xxl grid p-0 md:grid-cols-2">
