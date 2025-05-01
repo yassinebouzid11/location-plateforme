@@ -13,7 +13,7 @@ const {heading, description, buttons, image}={
   buttons : {
     primary: {
       text: "découvrez nos locations",
-      url: "https://www.shadcnblocks.com",
+      url: "/offers",
     },
     
   },

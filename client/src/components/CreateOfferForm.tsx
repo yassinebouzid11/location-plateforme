@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 
 export default function CreateOfferForm() {
@@ -16,10 +17,12 @@ export default function CreateOfferForm() {
     const [price, setPrice] = useState("")
     const [selectedType, setSelectedType] = useState("")
     const [images, setImages] = useState<File[]>([])
+    const Navigate= useNavigate();
 
 
 
 const types = ["Chambre", "Studio", "S1", "S2", "S3", "S4", "S5"]
+
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -29,7 +32,6 @@ const handleSubmit = async (e: React.FormEvent) => {
     formData.append("description", discription)
     formData.append("type", selectedType)
     formData.append("prix", price)
-
     images.forEach((image) => {
         formData.append("images", image)
     })
@@ -44,8 +46,9 @@ const handleSubmit = async (e: React.FormEvent) => {
         },
         withCredentials: true,
         })
+        Navigate("/");
+        console.log("Success:", response.data);
 
-        console.log("Success:", response.data)
     } catch (error: any) {
         alert("Erreur : " + (error.response?.data?.message || "Une erreur est survenue."))
     }
@@ -175,7 +178,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <div className="text-sm font-medium text-destructive"></div>
             </CardContent>
             <CardFooter>
-                <Button className="w-full" type="submit" >
+                <Button className="w-full cursor-pointer" type="submit" >
                 Publier
                 </Button>
             </CardFooter>

@@ -1,6 +1,6 @@
 const Offer=require("../models/Offer")
 
-// Create a new offer
+
 const createOffer = async (req, res) => {
     try {
         
@@ -37,7 +37,7 @@ const createOffer = async (req, res) => {
 };
 
 
-// Get all offers
+
 const getAllOffers = async (req, res) => {
     try {
     const offers = await Offer.find().populate("proprietaire", "nom email");
@@ -47,7 +47,24 @@ const getAllOffers = async (req, res) => {
     }
 };
 
-// Get single offer by ID
+const getOfferImage = async (req, res) => {
+    try {
+        const { offerId, imageIndex } = req.params
+        const offer = await Offer.findById(offerId)
+    
+        if (!offer || !offer.images || !offer.images[imageIndex]) {
+            return res.status(404).send("Image non trouvée")
+        }
+    
+        const image = offer.images[imageIndex]
+        res.set('Content-Type', image.mimetype)
+        res.send(image.buffer)
+        } catch (err) {
+        console.error("Erreur lors de la récupération de l'image :", err)
+        res.status(500).send("Erreur serveur")
+        }
+    }
+
 const getOfferById = async (req, res) => {
     try {
     const offer = await Offer.findById(req.params.id).populate("proprietaire", "nom email");
@@ -62,7 +79,7 @@ const getOfferById = async (req, res) => {
     }
 };
 
-// Update an offer
+
 const updateOffer = async (req, res) => {
     try {
     const updatedOffer = await Offer.findByIdAndUpdate(req.params.id, req.body, {
@@ -80,7 +97,7 @@ const updateOffer = async (req, res) => {
     }
 };
 
-// Delete an offer
+
 const deleteOffer = async (req, res) => {
     try {
     const deleted = await Offer.findByIdAndDelete(req.params.id);
@@ -98,6 +115,7 @@ module.exports ={
     createOffer,
     deleteOffer,
     getAllOffers,
+    getOfferImage,
     getOfferById,
     updateOffer,
 

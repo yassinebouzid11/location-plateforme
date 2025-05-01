@@ -34,11 +34,9 @@ export function SidebarRight() {
   return (
     <Sidebar
       collapsible="none"
-      className="sticky flex top-0 h-svh border-l"
+      className="sticky flex top-18 h-screen border-l"
     >
-      <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={data.user} />
-      </SidebarHeader>
+
       <SidebarContent>
         <DatePicker />
         <SidebarSeparator className="mx-0" />

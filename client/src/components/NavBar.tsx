@@ -5,6 +5,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { useState } from "react";
+import {  SidebarHeader } from "./ui/sidebar";
+import { NavUser } from "./NavUser";
 
 interface MenuItem {
   title: string;
@@ -12,28 +15,32 @@ interface MenuItem {
 }
 
 const Navbar = () => {
+    const [isLogged,setIsLogged]=useState(true)
 
-    const {logo, menu}={
+    const {logo, menu, user}={
+        user: {
+          name: "user",
+          email: "m@example.com",
+          avatar: "avatars.jpg",
+        },
         logo : {
             url: "/",
             src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
             alt: "logo",
             title: "LocationExpress",
-            },
-        menu :[
+          },
+          menu :[
             { title: "Home", url: "/" },
             { title: "Offers",url: "/Offers",},
             { title: "Contacts",url: "/Contacts",},
             { title: "Créer une offer",url: "/CreateOffer",},
-            ],
-    }
-  return (
-    <section className="py-4 px-4">
+          ],
+        }
+        return (
+    <section className="py-1 px-4 sticky top-0 z-1 bg-white/30 backdrop-blur-sm shadow-md">
       <div className="">
-        {/* Desktop Menu */}
-        <nav className=" justify-between flex">
+        <nav className="justify-between flex">
           <div className="flex items-center gap-6">
-            {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
               <img src={logo.src} className="max-h-8" alt={logo.alt} />
               <span className="text-lg font-semibold tracking-tighter">
@@ -49,17 +56,28 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={"/login"}>Connexion</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={"/signup"}>Register</a>
-            </Button>
+            {!isLogged ?
+            <>
+              <Button variant="outline" size="sm">
+                <a href={"/login"}>Connexion</a>
+              </Button>
+              <Button  size="sm">
+                <a href={"/signup"}>Register</a>
+              </Button>
+            </> 
+            :<>
+              <SidebarHeader className="h-16  border-sidebar-border">
+                <NavUser user={user} />
+              </SidebarHeader>
+              
+            </>
+              }
           </div>
         </nav>
 
       </div>
     </section>
+    
   );
 };
 
