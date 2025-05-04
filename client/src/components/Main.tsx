@@ -3,11 +3,22 @@ import { Button } from "@/components/ui/button";
 import { ContactFooter } from "./ContactFooter";
 import Carousel1 from "./MainFirstCarousel";
 import Carousel2 from "./MainSecondCarousel";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-
+export interface OfferT {
+  _id:string
+  titre:string
+  adresse:string
+  description:string
+  type:string
+  prix:number
+  images:File[]
+}
 
 export  default function Main(){
-const {heading, description, buttons, image}={
+  const [offers,setOffers]= useState<OfferT[]>([])
+  const {heading, description, buttons, image}={
   heading : "LocationExpress pour faciliter votre recherche de logement",
   description : "Trouvez rapidement tous types de locations et de colocations sur notre plateforme. Cliquez ici pour les découvrir.",
   buttons : {
@@ -21,7 +32,28 @@ const {heading, description, buttons, image}={
     src: "https://www.shadcnblocks.com/images/block/placeholder-1.svg",
     alt: "Hero section demo image showing interface components",
   },
-}
+  }
+
+
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const token= localStorage.getItem("token")
+        const response = await axios.get("http://localhost:5000/offer/all",{
+          headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+          })
+        setOffers(response.data)
+      } catch (error) {
+        console.error("Erreur lors du chargement des offres :", error)
+      }
+    }
+  
+    fetchOffers()
+  }, [])
   return (
     <section className="py-16">
       <div className="container">
@@ -49,9 +81,9 @@ const {heading, description, buttons, image}={
           />
         </div>
         <h2 className="mt-6 ml-3 text-4xl font-bold text-pretty lg:text-3xl">Offres des logements</h2>
-        <Carousel1 />
+        <Carousel1 offers={offers}/>
         <h2 className="mt-6 ml-3 text-4xl font-bold text-pretty lg:text-3xl">Offres des colocations</h2>
-        <Carousel2 />
+        <Carousel2 offers={offers}/>
         <ContactFooter />
       </div>
     </section>

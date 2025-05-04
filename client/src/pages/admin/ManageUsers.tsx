@@ -140,13 +140,13 @@ useEffect(() => {
                 <td className="p-3">{user.email}</td>
                 <td className="p-3">{user.cin}</td>
                 <td className="p-3 flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => editUser(user)}>
+                  <Button variant="outline" size="sm" className="cursor-pointer" onClick={() => editUser(user)}>
                     <Pencil className="w-4 h-4 mr-1" /> Modifier
                   </Button>
-                  <Button variant="destructive" size="sm" onClick={() => confirmDelete(user)}>
-                    <Trash2 className="w-4 h-4 mr-1" /> Supprimer
+                  <Button variant="destructive"  size="sm" className="cursor-pointer" onClick={() => confirmDelete(user)}>
+                    Supprimer
                   </Button>
-                </td>
+                </td> 
               </tr>
             ))}
             {filteredUsers.length === 0 && (
@@ -177,7 +177,7 @@ useEffect(() => {
           disabled={currentPage * ITEMS_PER_PAGE >= filteredUsers.length}
         >
           Suivant
-        </Button>
+        </Button>  
       </div>
 
       <Modal

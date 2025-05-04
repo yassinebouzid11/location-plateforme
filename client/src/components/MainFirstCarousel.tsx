@@ -2,84 +2,22 @@ import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { useEffect } from "react"
+import { OfferT } from "./Main"
 
-const items = [
-  {
-    id: 1,
-    image: "https://via.placeholder.com/300x200",
-    title: "Chambre Meublée",
-    description: "Bien située à Tunis",
-    price: 300,
-    type: "Chambre",
-    place: "Tunis",
-    link: "/offredetails/1",
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/300x200",
-    title: "Studio Moderne",
-    description: "Proche des transports",
-    price: 400,
-    type: "Studio",
-    place: "Ariana",
-    link: "/offredetails/2",
-  },
-  {
-    id: 3,
-    image: "https://via.placeholder.com/300x200",
-    title: "Appartement S2",
-    description: "Confortable pour une petite famille",
-    price: 600,
-    type: "S2",
-    place: "Sfax",
-    link: "/offredetails/3",
-  },
-  {
-    id: 4,
-    image: "https://via.placeholder.com/300x200",
-    title: "Appartement S4",
-    description: "Spacieux et lumineux",
-    price: 800,
-    type: "S4",
-    place: "Tunis",
-    link: "/offredetails/4",
-  },
-  {
-    id: 5,
-    image: "https://via.placeholder.com/300x200",
-    title: "Studio Meublé",
-    description: "Idéal pour étudiants",
-    price: 350,
-    type: "Studio",
-    place: "Tunis",
-    link: "/offredetails/5",
-  },
-  {
-    id: 6,
-    image: "https://via.placeholder.com/300x200",
-    title: "Appartement S3",
-    description: "Vue mer à Sousse",
-    price: 700,
-    type: "S3",
-    place: "Sousse",
-    link: "/offredetails/6",
-  },
-  {
-    id: 7,
-    image: "https://via.placeholder.com/300x200",
-    title: "Appartement S1",
-    description: "Compact et pratique",
-    price: 500,
-    type: "S1",
-    place: "Monastir",
-    link: "/offredetails/7",
-  },{
-    id: 6,  // New Plus Symbol Item
-    isPlus: true,  // Flag to identify the Plus Symbol item
-  },
-]
-export default function Carousel1() {
+export default function Carousel1({offers}:{offers : OfferT[]}) {
   const containerRef = useRef<HTMLDivElement>(null)
+
+
+  const filteredOffers = offers.filter((offer) => {
+      return (
+        offer.type!=="Chambre"
+      )
+    })
+
+    const displayedOffers = filteredOffers.slice(0, 6) // Show only the first 6 offers
+
+    const finalOffers = [...displayedOffers, { isPlus: true, _id: "plus" }] // Add the plus button
+
 
   const scroll = (direction: "left" | "right") => {
     if (containerRef.current) {
@@ -152,32 +90,32 @@ export default function Carousel1() {
           ref={containerRef}
           className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
         >
-          {items.map((item) => (
+          {finalOffers.map((offer) => (
             <div
-              key={item.id}
+              key={offer._id}
               className="w-[calc(100%/3)] flex-shrink-0 p-2 snap-start"
             >
               <div
-                className={` rounded-xl border shadow-2xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${item.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
+                className={` rounded-xl border shadow-2xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${offer.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
               >
-                {item.isPlus ? (
+                {"isPlus" in offer ? (
                   <a href="/Offers" className="text-6xl font-bold text-primary cursor-pointer">
                   +
                 </a> 
                 ) : (
                   <>
                     <img
-                      src={item.image}
-                      alt={item.title}
+                      src={`http://localhost:5000/offer/image/${offer._id}/0`}
+                      alt={offer.titre}
                       className="w-full h-40 object-cover  cursor-pointer rounded-lg mb-3"
                     />
-                    <h3 className="text-lg font-bold">{item.title}</h3>
+                    <h3 className="text-lg font-bold">{offer.titre}</h3>
                     <p className="text-sm text-muted-foreground mb-2">
-                      {item.description}
+                      {offer.description}
                     </p>
-                    <p className="font-semibold text-primary mb-3">{item.price}</p>
+                    <p className="font-semibold text-primary mb-3">{offer.prix}</p>
                     <Button asChild className="w-full">
-                      <a href={item.link}>View Details</a>
+                      <a href={offer.link}>View Details</a>
                     </Button>
                   </>
                 )}
