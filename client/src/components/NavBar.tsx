@@ -15,7 +15,7 @@ interface MenuItem {
 }
 
 const Navbar = () => {
-    const [isLogged,setIsLogged]=useState(true)
+    const [isLogged,setIsLogged]=useState(false)
 
     const {logo, menu, user}={
         user: {
@@ -25,7 +25,7 @@ const Navbar = () => {
         },
         logo : {
             url: "/",
-            src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
+            src: "../../public/icon2.png",
             alt: "logo",
             title: "LocationExpress",
           },
@@ -36,13 +36,13 @@ const Navbar = () => {
             { title: "Créer une offer",url: "/CreateOffer",},
           ],
         }
-        return (
+        return ( 
     <section className="py-1 px-4 sticky top-0 z-1 bg-white/30 backdrop-blur-sm shadow-md">
       <div className="">
         <nav className="justify-between flex">
           <div className="flex items-center gap-6">
             <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8" alt={logo.alt} />
+              <img src={logo.src} className="max-h-8 max-w-14" alt={logo.alt} />
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
@@ -62,7 +62,7 @@ const Navbar = () => {
                 <a href={"/login"}>Connexion</a>
               </Button>
               <Button  size="sm">
-                <a href={"/signup"}>Register</a>
+                <a href={"/signup"}>Register</a> 
               </Button>
             </> 
             :<>

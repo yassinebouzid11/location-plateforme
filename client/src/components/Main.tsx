@@ -29,7 +29,7 @@ export  default function Main(){
     
   },
   image : {
-    src: "https://www.shadcnblocks.com/images/block/placeholder-1.svg",
+    src: "../../public/logo2.png",
     alt: "Hero section demo image showing interface components",
   },
   }
@@ -77,7 +77,7 @@ export  default function Main(){
           <img
             src={image.src}
             alt={image.alt}
-            className="max-h-90 w-full rounded-md object-cover px-3"
+            className="max-h-90 w-full rounded-4xl object-cover px-3"
           />
         </div>
         <h2 className="mt-6 ml-3 text-4xl font-bold text-pretty lg:text-3xl">Offres des logements</h2>

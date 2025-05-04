@@ -13,14 +13,6 @@ interface User {
   cin: number
 }
 
-// const Users: User[] = [
-//   { id: 1, name: "Yasmine B.", email: "yasmine@example.com", cin: "12345678" },
-//   { id: 2, name: "Ali K.", email: "ali@example.com", cin: "87654321" },
-//   { id: 3, name: "Sara M.", email: "sara@example.com", cin: "11223344" },
-//   { id: 4, name: "Nadia L.", email: "nadia@example.com", cin: "22334455" },
-//   { id: 5, name: "Ahmed T.", email: "ahmed@example.com", cin: "33445566" },
-//   { id: 6, name: "Mona P.", email: "mona@example.com", cin: "44556677" },
-// ]
 
 
 export default function ManageUsers() {
@@ -35,7 +27,7 @@ const ITEMS_PER_PAGE = 10
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/users/all'); // Adjust base URL if needed
+    const response = await axios.get('http://localhost:5000/users/all'); 
     setUsers(response.data);
   console.log(response.data);
     
@@ -144,7 +136,7 @@ useEffect(() => {
                     <Pencil className="w-4 h-4 mr-1" /> Modifier
                   </Button>
                   <Button variant="destructive"  size="sm" className="cursor-pointer" onClick={() => confirmDelete(user)}>
-                    Supprimer
+                    <Trash2 className="w-4 h-4 mr-1" />Supprimer
                   </Button>
                 </td> 
               </tr>
