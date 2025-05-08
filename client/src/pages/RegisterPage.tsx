@@ -169,12 +169,7 @@ export default function RegisterPage() {
                 Se connecter
               </Button>
             </CardFooter>
-            <div className="px-8 pb-6 text-center text-sm">
-              Vous n'avez pas de compte?{" "}
-              <Button variant="link" className="p-0 font-normal h-auto">
-                S'inscrire
-              </Button>
-            </div>
+            
           </div>
         </form>
         <div className="relative hidden bg-muted md:block">

@@ -10,7 +10,7 @@ export default function ContactPage() {
         <div>
           <h1 className="text-4xl font-bold mb-2">Contact Us</h1>
           <p className="text-gray-600 mb-16">
-            We are available for questions, feedback, or collaboration opportunities. Let us know how we can help!
+          Nous sommes disponibles pour des questions, des feedback ou des opportunités de collaboration. Faites-nous savoir comment nous pouvons vous aider !
           </p>
 
           <div>
