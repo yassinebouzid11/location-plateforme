@@ -3,11 +3,11 @@
 
 import { ElementRightBar } from "@/components/ElementRightBar"
 import { DatePicker } from "@/components/DatePicker"
-import { NavUser } from "@/components/NavUser"
+
 import {
   Sidebar,
   SidebarContent,
-  SidebarHeader,
+
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 

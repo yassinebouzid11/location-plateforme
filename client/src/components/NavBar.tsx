@@ -15,12 +15,12 @@ interface MenuItem {
 }
 
 const Navbar = () => {
-    const [isLogged,setIsLogged]=useState(false)
+    const [isLogged,setIsLogged]=useState(true)
 
     const {logo, menu, user}={
         user: {
-          name: "user",
-          email: "m@example.com",
+          name: "Yassine bouzid",
+          email: "bouzidyassine08@gmail.com",
           avatar: "avatars.jpg",
         },
         logo : {
