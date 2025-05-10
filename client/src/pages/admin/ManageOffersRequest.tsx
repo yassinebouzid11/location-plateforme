@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 // import { Card } from "@/components/ui/card"
-import { Pencil,Trash2 } from "lucide-react"
+import { Check, Pencil,Trash2 } from "lucide-react"
 import Modal from "react-modal"
 import { useNavigate } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ const requestedOffers: Offer[] = [
     idPost: 101,
     ownerName: "Yasmine",
     email: "Yasmine@gmail.com",
-    type: "S2",
+    type: "S1",
     date: "2024-04-01",
     price: 550,
   },
@@ -67,7 +67,7 @@ export default function ManageOffersRequest() {
   const [sortKey, setSortKey] = useState<"date" | "price">("date")
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalType, setModalType] = useState<"delete" | "edit" | null>(null)
+  const [modalType, setModalType] = useState<"delete" | "validate" | null>(null)
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -77,7 +77,8 @@ export default function ManageOffersRequest() {
 
   const filteredOffers = offers
     .filter((offer) =>
-      offer.ownerName.toLowerCase().includes(search.toLowerCase())
+      offer.ownerName.toLowerCase().includes(search.toLowerCase()) ||
+      offer.email.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
       const valA = a[sortKey]
@@ -95,6 +96,22 @@ export default function ManageOffersRequest() {
     setModalType("delete")
     setIsModalOpen(true)
   }
+  
+  const deleteUser = (id: number | undefined) => {
+    setOffers(offers.filter((offer) => offer.idPost !== id))
+    closeModal()
+  }
+  
+  const confirmValidate = (offer: Offer) => {
+    setSelectedOffer(offer)
+    setModalType("validate")
+    setIsModalOpen(true)
+  }
+
+  const handleSaveValidate = (id: number | undefined) => {
+    //put the logic here, look how in the edit in manageUders
+    closeModal()
+  }
 
   const closeModal = () => {
     setIsModalOpen(false)
@@ -102,10 +119,8 @@ export default function ManageOffersRequest() {
     setModalType(null)
   }
 
-  const deleteUser = (id: number | undefined) => {
-    setOffers(offers.filter((offer) => offer.idPost !== id))
-    closeModal()
-  }
+  
+
   const handleSort = (key: "date" | "price") => {
     if (sortKey === key) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc")
@@ -122,7 +137,7 @@ export default function ManageOffersRequest() {
 
       <div className="mb-4 flex items-center justify-between">
         <Input
-          placeholder="Rechercher par nom du propriétaire"
+          placeholder="Rechercher par nom ou email du propriétaire"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -160,6 +175,10 @@ export default function ManageOffersRequest() {
                 <Button variant="outline" size="sm"
                 onClick={()=>Navigate(`/admin/offer-requests-details/${offer.idPost}`)}>
                     <Pencil className="w-4 h-4 mr-1" /> Details
+                </Button>
+                <Button variant="default" className="cursor-pointer" size="sm"
+                  onClick={()=> confirmValidate(offer)}>
+                  <Check className="w-4 h-4 mr-1" /> Valider
                 </Button>
                 <Button
                   size="sm"
@@ -210,6 +229,24 @@ export default function ManageOffersRequest() {
         <div className="flex gap-2 justify-end">
           <Button variant="destructive" onClick={() => deleteUser(selectedOffer?.idPost)}>
             Supprimer
+          </Button>
+          <Button variant="outline" onClick={closeModal}>
+            Annuler
+          </Button>
+        </div>
+      </Modal>
+      
+      <Modal
+        isOpen={isModalOpen && modalType === "validate"}
+        onRequestClose={closeModal}
+        contentLabel="Confirmer la validation"
+        className="max-w-sm w-full mx-auto mt-40 bg-white rounded-md shadow-lg p-6 focus:outline-none"
+      >
+        <h2 className="text-lg font-semibold">Confirmer la validation</h2>
+        <p className="text-sm text-muted-foreground mb-4">Êtes-vous sûr de vouloir valider cet demande ?</p>
+        <div className="flex gap-2 justify-end">
+          <Button variant="default" onClick={() => handleSaveValidate(selectedOffer?.idPost)}>
+            Valider
           </Button>
           <Button variant="outline" onClick={closeModal}>
             Annuler

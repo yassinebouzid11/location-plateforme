@@ -17,16 +17,16 @@ interface Offer {
 const OffersRequest:Offer[] = [
   {
     id: 101,
-    ownerName: "Yasmine B.",
-    type: "S2",
+    ownerName: "Yasmine",
+    type: "S1",
     date: "2024-04-01",
     price: 550,
-    description:"fvvf",
-    place:"sahloul",
-    images: [
-      "https://via.placeholder.com/600x402",
-      "https://via.placeholder.com/600x403",
-    ],
+    place:"monastir",
+    description:"un bon S1 pour etudiant",
+    images:[
+      "/test_detail_request1.jpg",
+      "/test_detail_request2.jpg",
+    ]
   },
   {
     id: 102,
