@@ -30,8 +30,8 @@ const Navbar = () => {
             title: "LocationExpress",
           },
           menu :[
-            { title: "Home", url: "/" },
-            { title: "Offers",url: "/Offers",},
+            { title: "Accueil", url: "/" },
+            { title: "Offres",url: "/Offres",},
             { title: "Contacts",url: "/Contacts",},
             { title: "Créer une offer",url: "/CreateOffer",},
           ],

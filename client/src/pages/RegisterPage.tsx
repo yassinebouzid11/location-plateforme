@@ -17,8 +17,13 @@ export default function RegisterPage() {
   const [cin, setCin] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [selectedRole, setSelectedRole] = useState("")
+  
   const [showPassword, setShowPassword] = useState(false)
   const navigate=useNavigate()
+
+  const roles = ["propriétaire", "locataire"]
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,6 +36,7 @@ export default function RegisterPage() {
     const userData = {
       nom,
       email,
+      role:selectedRole,
       tele: parseInt(tel, 10),
       age: parseInt(age, 10),
       cin: parseInt(cin, 10),
@@ -43,7 +49,7 @@ export default function RegisterPage() {
       alert("Inscription réussie !")
 
       // reset
-      setNom("");  setEmail(""); setTel(""); setAge(""); setCin(""); setPassword(""); setConfirmPassword("");
+      setNom("");  setEmail(""); setTel(""); setAge(""); setCin(""); setPassword(""); setConfirmPassword("");setSelectedRole("");
 
       // Redirection
       navigate("/") 
@@ -113,6 +119,19 @@ export default function RegisterPage() {
                   required
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="role">Role</Label>
+                <select
+                      className="w-full border rounded-lg p-2"
+                      value={selectedRole}
+                      onChange={(e) => setSelectedRole(e.target.value)}
+                  >
+                      <option value="">Choisir un role</option>
+                      {roles.map((role) => (
+                          <option key={role} value={role}>{role}</option>
+                      ))}
+                </select>
+              </div> 
               <div className="space-y-2">
                 <Label htmlFor="age">Age</Label>
                 <Input

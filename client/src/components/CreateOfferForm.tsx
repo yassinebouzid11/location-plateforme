@@ -136,11 +136,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                 >
-            <option value="">Choisir un type</option>
-            {types.map((type) => (
-                <option key={type} value={type}>{type}</option>
-            ))}
-            </select>
+                    <option value="">Choisir un type</option>
+                    {types.map((type) => (
+                        <option key={type} value={type}>{type}</option>
+                    ))}
+                    </select>
                 </div>
                 <div className="space-y-2">
                 <Label htmlFor="price">Prix</Label>

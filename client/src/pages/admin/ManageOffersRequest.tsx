@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 interface Offer {
   idPost: number
   ownerName: string
+  email: string
   type: string
   date: string
   price: number
@@ -18,39 +19,44 @@ interface Offer {
 const requestedOffers: Offer[] = [
   {
     idPost: 101,
-    ownerName: "Yasmine B.",
+    ownerName: "Yasmine",
+    email: "Yasmine@gmail.com",
     type: "S2",
     date: "2024-04-01",
     price: 550,
   },
   {
     idPost: 102,
-    ownerName: "Ali K.",
-    type: "Studio",
-    date: "2024-04-10",
-    price: 400,
+    ownerName: "Ali",
+    email: "ali@gmail.com",
+    type: "S3",
+    date: "2024-04-30",
+    price: 700,
   },
   
   {
     idPost: 103,
-    ownerName: "Ali c.",
-    type: "Studio",
-    date: "2024-04-10",
+    ownerName: "tawfik",
+    type: "studio",
+    email: "tawfik@gmail.com",
+    date: "2024-04-15",
     price: 400,
   },
   {
     idPost: 104,
-    ownerName: "Ali d.",
-    type: "Studio",
-    date: "2024-04-10",
-    price: 400,
+    ownerName: "samir",
+    email: "samirr@gmail.com",
+    type: "chambre",
+    date: "2024-04-08",
+    price: 460,
   },
   {
     idPost: 105,
-    ownerName: "Ali b.",
-    type: "Studio",
-    date: "2024-04-10",
-    price: 400,
+    ownerName: "salsabil",
+    email: "salsabil@gmail.com",
+    type: "studio",
+    date: "2024-04-24",
+    price: 600,
   },
   // Add more offers here
 ]
@@ -112,7 +118,7 @@ export default function ManageOffersRequest() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Gérer les Offres</h2>
+      <h2 className="text-2xl font-semibold mb-4">Demandes des offres</h2>
 
       <div className="mb-4 flex items-center justify-between">
         <Input
@@ -132,8 +138,9 @@ export default function ManageOffersRequest() {
         <table className="min-w-full text-sm text-left">
           <thead>
             <tr className="bg-muted">
-              <th className="px-4 py-2">ID</th>
+              
               <th className="px-4 py-2">Nom Propriétaire</th>
+              <th className="px-4 py-2">Email</th>
               <th className="px-4 py-2">Type</th>
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Prix</th>
@@ -143,8 +150,9 @@ export default function ManageOffersRequest() {
           <tbody>
             {currentOffers.map((offer) => (
               <tr key={offer.idPost} className="border-b">
-                <td className="px-4 py-2">{offer.idPost}</td>
+                
                 <td className="px-4 py-2">{offer.ownerName}</td>
+                <td className="px-4 py-2">{offer.email}</td>
                 <td className="px-4 py-2">{offer.type}</td>
                 <td className="px-4 py-2">{offer.date}</td>
                 <td className="px-4 py-2">{offer.price} TND</td>

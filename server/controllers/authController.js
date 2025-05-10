@@ -7,11 +7,11 @@ const nodemailer = require("nodemailer");
 
 const register = async (req,res) => {
 
-const {nom,email,password,tele,cin,age}= req.body;
+const {nom,email,role,password,tele,cin,age}= req.body;
 const emailContent=`Hello ${nom} your acount has been created successfully`;
 const emailObject=`Welcome to our project Mr/Mrs ${nom}`;
 
-if (!nom|| !email || !password || !tele || !cin || !age) {
+if (!nom|| !email || !password || !tele || !cin || !age || !role) {
     return res.status(400).json({message: "All fields are required"});
 }
 
@@ -27,6 +27,7 @@ try {
     await User.create({
         nom,
         email,
+        role,
         password:hashedPassword,
         tele,
         cin,
@@ -59,6 +60,7 @@ const login = async (req,res) =>{
     if(!foundedUser) {
         return res.status(401).json({message: "User does not exist"})
     }
+
 const isMatch = await bcrypt.compare(password,foundedUser.password);
 
 if(!isMatch) {
@@ -75,6 +77,7 @@ res.status(200).send({
     accessToken,
     id: foundedUser._id,
     email: foundedUser.email,
+    role: foundedUser.role,
 });
 
 

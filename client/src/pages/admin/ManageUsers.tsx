@@ -10,9 +10,9 @@ interface User {
   _id: string
   nom: string
   email: string
+  role: string
   cin: number
 }
-
 
 
 export default function ManageUsers() {
@@ -23,7 +23,7 @@ export default function ManageUsers() {
   const [modalType, setModalType] = useState<"delete" | "edit" | null>(null)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
-const ITEMS_PER_PAGE = 10
+const ITEMS_PER_PAGE = 10;
 
 const fetchUsers = async () => {
   try {
@@ -44,6 +44,7 @@ useEffect(() => {
     (user) =>
       user.nom.toLowerCase().includes(search.toLowerCase()) ||
       user.email.toLowerCase().includes(search.toLowerCase()) ||
+      user.role.toLowerCase().includes(search.toLowerCase()) ||
       user.cin.toString().includes(search)
   )
 
@@ -106,7 +107,7 @@ useEffect(() => {
       <div className="mb-4 flex justify-end">
         <Input
           type="text"
-          placeholder="Rechercher par nom, email ou CIN..."
+          placeholder="Rechercher par nom, email, role ou CIN..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -120,6 +121,7 @@ useEffect(() => {
 
               <th className="p-3">Nom</th>
               <th className="p-3">Email</th>
+              <th className="p-3">Role</th>
               <th className="p-3">CIN</th>
               <th className="p-3">Actions</th>
             </tr>
@@ -130,6 +132,7 @@ useEffect(() => {
 
                 <td className="p-3 font-medium">{user.nom}</td>
                 <td className="p-3">{user.email}</td>
+                <td className="p-3">{user.role}</td>
                 <td className="p-3">{user.cin}</td>
                 <td className="p-3 flex gap-2">
                   <Button variant="outline" size="sm" className="cursor-pointer" onClick={() => editUser(user)}>

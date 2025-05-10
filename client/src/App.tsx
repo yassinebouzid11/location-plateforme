@@ -33,7 +33,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/contacts" element={<ContactPage />} />
-        <Route path="/offers" element={<Offres />} />
+        <Route path="/offres" element={<Offres />} />
         <Route path="/createoffer" element={<CreateOffer />} />
         <Route path="/offredetails/:id" element={<OfferDetails />} />
 
@@ -51,7 +51,7 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<div>Welcome Admin</div>} />
+          <Route index element={<Navigate to={"/admin/users"} />} />
           <Route path="users" element={<ManageUsers />} />
           <Route path="offers" element={<ManageOffers />} />
           <Route path="offers-details/:id" element={<AdminOfferDetails />} />
