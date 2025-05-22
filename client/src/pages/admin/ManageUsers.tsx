@@ -6,7 +6,7 @@ import { Pencil, Trash2} from "lucide-react"
 import Modal from "react-modal"
 import axios from "axios"
 
-interface User {
+export interface User {
   _id: string
   nom: string
   email: string

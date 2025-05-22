@@ -12,10 +12,10 @@ import { NavUser } from "./NavUser";
 interface MenuItem {
   title: string;
   url: string;
-}
+} 
 
 const Navbar = () => {
-    const [isLogged,setIsLogged]=useState(true)
+    const [isLogged,setIsLogged]=useState(false)
 
     const {logo, menu, user}={
         user: {

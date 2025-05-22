@@ -12,6 +12,7 @@ type Props = {
 };
 
 export function MessageThread({ messages, currentUserId }: Props) {
+  
   return (
     <div className="flex flex-col gap-2 p-4 h-[400px] overflow-y-auto bg-white">
       {messages.map((msg) => (
