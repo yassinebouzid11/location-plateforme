@@ -11,6 +11,7 @@ export function MessageInput({ onSend }: Props) {
 
   const send = () => {
     if (!value.trim()) return;
+    console.log(value)
     onSend(value);
     setValue("");
   };

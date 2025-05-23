@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input"; 
 import { Button } from "../ui/button";
 import Modal from "react-modal"
@@ -28,6 +28,7 @@ export function SidebarConversation() {
   const [searchUser, setSearchUser] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const Navigate=useNavigate();
 
   const ITEMS_PER_PAGE = 10;
 
@@ -85,7 +86,7 @@ export function SidebarConversation() {
     setIsModalOpen(false)
   }
 
-  const addConversation = () => {
+  const openAddConversation = () => {
     setIsModalOpen(true)
     fetchUsers();
   }
@@ -99,16 +100,17 @@ export function SidebarConversation() {
     }
 
     const loggedUser = JSON.parse(storedUser);
-    const newConversation= {user1:loggedUser.id, user2:id}
-    console.log(newConversation)
+    const newConversation= {user1:loggedUser.id, user2:id};
+    console.log(newConversation);
 
     try{
-    const response = await axios.post("http://localhost:5000/conversations",newConversation)
-    console.log(response.data)
+    const response = await axios.post("http://localhost:5000/conversations",newConversation);
+    console.log(response.data);
     fetchConversations();
-    setIsModalOpen(false)
+    setIsModalOpen(false);
+    Navigate(`/messages/conversation/${response.data._id}}`);
     } catch (error: any) {
-        alert("Erreur : " + (error.response?.data?.message || "Une erreur est survenue."))
+        alert("Erreur : " + (error.response?.data?.message || "Une erreur est survenue."));
     }
   };
 
@@ -141,7 +143,7 @@ export function SidebarConversation() {
         )}
       </div>
       <div  className="self-end m-2">
-        <Button className="" onClick={addConversation}>Nouveau</Button>
+        <Button className="" onClick={openAddConversation}>Nouveau</Button>
       </div>
       <Modal
               isOpen={isModalOpen}
