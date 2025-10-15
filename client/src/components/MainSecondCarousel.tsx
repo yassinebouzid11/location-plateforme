@@ -33,15 +33,20 @@ useEffect(() => {
   const container = containerRef.current
   if (!container) return
 
+    container.scrollLeft = 0;
+
   let isDown = false
   let startX = 0
   let scrollLeft = 0
 
   const startDragging = (e: MouseEvent | TouchEvent) => {
-    isDown = true
-    startX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX
-    scrollLeft = container.scrollLeft
-  }
+    e.preventDefault(); // prevent default selection
+    isDown = true;
+    startX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
+    scrollLeft = container.scrollLeft;
+    
+  };
+
 
   const stopDragging = () => {
     isDown = false
@@ -72,7 +77,7 @@ useEffect(() => {
     container.removeEventListener("mousemove", onDrag)
     container.removeEventListener("touchmove", onDrag)
   }
-}, [])
+}, [offers])
 
 return (
   <div className="max-w-6xl mx-auto px-4 py-8">
@@ -88,15 +93,16 @@ return (
     <div className="relative overflow-hidden">
       <div
         ref={containerRef}
-        className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+        className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar user-select-none cursor-grab active:cursor-grabbing"
       >
+
         {finalOffers.map((offer) => (
           <div
             key={offer._id}
-            className="w-[calc(100%/3)] flex-shrink-0 p-2 snap-start"
+            className="w-[calc(100%/3)] flex-shrink-0 p-2 snap-start user-select-none"
           >
             <div
-              className={` rounded-xl border shadow-2xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${offer.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
+              className={` rounded-xl border shadow-2xl hover:shadow-xl user-select-none hover:scale-[1.02] transition-all duration-300 p-4 h-full ${offer.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
             >
               {"isPlus" in offer ? (
                 <a href="/Offers" className="text-6xl font-bold text-primary cursor-pointer">

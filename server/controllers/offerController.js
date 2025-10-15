@@ -67,17 +67,28 @@ const getOfferImage = async (req, res) => {
 
 const getOfferById = async (req, res) => {
     try {
-    const offer = await Offer.findById(req.params.id).populate("proprietaire", "nom email");
+        const offer = await Offer.findById(req.params.id)
+        .populate("proprietaire", "nom email")
+        .lean();
 
-    if (!offer) {
-        return res.status(404).json({ message: "Offre non trouvée" });
-    }
+        if (!offer) {
+            return res.status(404).json({ message: "Offre non trouvée" });
+        }
 
-    res.json(offer);
+        
+        offer.images = offer.images.map((img, index) => ({
+            filename: img.filename,
+            mimetype: img.mimetype,
+            url: `/offer/image/${offer._id}/${index}` 
+        }));
+
+        res.json(offer);
     } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération de l'offre", error });
+        console.error("Erreur dans getOfferById:", error);
+        res.status(500).json({ message: "Erreur lors de la récupération de l'offre", error });
     }
 };
+
 
 
 const updateOffer = async (req, res) => {

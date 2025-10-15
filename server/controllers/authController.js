@@ -77,6 +77,7 @@ res.status(200).send({
     accessToken,
     id: foundedUser._id,
     email: foundedUser.email,
+    name: foundedUser.nom,
     role: foundedUser.role,
 });
 

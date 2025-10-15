@@ -5,14 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
+// import { EyeIcon } from "lucide-react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/store/authContext";
+
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [errMessage, setErrMessage] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const { login } = useAuth();
   const navigate=useNavigate()
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,14 +32,13 @@ export default function LoginPage() {
   
       console.log("Login successful:", response.data);
       
-      const { accessToken, email, id } = response.data
+      const { accessToken, email, id, name } = response.data
       localStorage.setItem("token", accessToken)
-      localStorage.setItem("user", JSON.stringify({ email, id }))
-      // Redirect or store auth info here (e.g., navigate to dashboard)
+      login({email, id, name});
       navigate("/")
     } catch (error: any) {
       if (error.response && error.response.data?.message) {
-        alert("Erreur : " + error.response.data.message);
+        setErrMessage(true);
       } else {
         alert("Erreur réseau. Veuillez réessayer plus tard.");
       }
@@ -79,21 +83,21 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
-                  <Button
+                  {/* <Button
                     type="button"
                     variant="ghost"
                     size="icon"
                     className="absolute right-0 top-0 h-full px-3 py-2 text-muted-foreground"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
-                    <span className="sr-only">
-                      {showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-                    </span>
-                  </Button>
+                  <EyeIcon className="h-4 w-4" /> */}
+
+                  {/* </Button> */}
                 </div>
               </div>
-              <div className="text-sm font-medium text-destructive"></div>
+              {errMessage && (
+                <p className="text-red-500 font-medium mt-2">Veuillez vérifier vos coordonnées</p>
+              )}
             </CardContent>
             <CardFooter>
               <Button className="w-full" type="submit" >

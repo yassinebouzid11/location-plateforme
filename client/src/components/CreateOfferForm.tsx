@@ -46,7 +46,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         },
         withCredentials: true,
         })
-        Navigate("/");
+        Navigate("/offres");
         console.log("Success:", response.data);
 
     } catch (error: any) {

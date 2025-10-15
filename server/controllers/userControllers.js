@@ -26,37 +26,6 @@ const getUserById = async(req,res)=>{
     res.json(user);
 } 
 
-
-
-// const updateUser = async (req, res) => {
-//     try { 
-//         const { id } = req.params;
-//         const updates = req.body;
-//         const emailContent=`Hello, your password has been successfully updated. If you did not perform this change, please contact support immediately.`;
-//         const emailObject='Password Updated';
-        
-//         if (updates.password) {
-//             updates.password = await bcrypt.hash(updates.password, 10);
-
-//             await sendEmail(id, emailContent, emailObject);
-//         }
-
-//         // Update the user in the database
-//         const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true })
-//             .select('-password') // Exclude password from the response
-//             .lean();
-
-//         // Check if the user was found and updated
-//         if (!updatedUser) {
-//             return res.status(404).json({ message: "No users found" });
-//         }
-
-//         res.json(updatedUser);
-//     } catch (error) {
-//         console.error("Error updating user:", error);
-//         res.status(500).json({ message: "Server error" });
-//     }
-// };
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;

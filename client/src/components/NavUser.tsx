@@ -29,6 +29,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
+import { useAuth } from "@/store/authContext";
+
 export function NavUser({ user }: { user: { name: string; email: string; avatar: string } }) {
   let sidebarContext;
   
@@ -39,6 +41,7 @@ export function NavUser({ user }: { user: { name: string; email: string; avatar:
     sidebarContext = { isMobile: false }; // Provide a default fallback
   }
 
+  const {logout}=useAuth()
   return (
     <SidebarProvider>
       <SidebarMenu>
@@ -79,31 +82,9 @@ export function NavUser({ user }: { user: { name: string; email: string; avatar:
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Sparkles />
-                  Upgrade to Pro
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <BadgeCheck />
-                  Account
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <CreditCard />
-                  Billing
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Bell />
-                  Notifications
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={()=>logout()}>
                 <LogOut />
-                Log out
+                Déconnecter
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

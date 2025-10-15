@@ -7,86 +7,23 @@ import { Link } from "react-router-dom"
 import { ContactFooter } from "./ContactFooter"
 import axios from "axios"
 
-// const offers = [
-//   {
-//     id: 1,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Chambre Meublée",
-//     description: "Bien située à Tunis",
-//     prix: 300,
-//     type: "Chambre",
-//     adresse: "Tunis",
-//     link: "/offredetails/1",
-//   },
-//   {
-//     id: 2,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Studio Moderne",
-//     description: "Proche des transports",
-//     prix: 400,
-//     type: "Studio",
-//     adresse: "Ariana",
-//     link: "/offredetails/2",
-//   },
-//   {
-//     id: 3,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Appartement S2",
-//     description: "Confortable pour une petite famille",
-//     prix: 600,
-//     type: "S2",
-//     adresse: "Sfax",
-//     link: "/offredetails/3",
-//   },
-//   {
-//     id: 4,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Appartement S4",
-//     description: "Spacieux et lumineux",
-//     prix: 800,
-//     type: "S4",
-//     adresse: "Tunis",
-//     link: "/offredetails/4",
-//   },
-//   {
-//     id: 5,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Studio Meublé",
-//     description: "Idéal pour étudiants",
-//     prix: 350,
-//     type: "Studio",
-//     adresse: "Tunis",
-//     link: "/offredetails/5",
-//   },
-//   {
-//     id: 6,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Appartement S3",
-//     description: "Vue mer à Sousse",
-//     prix: 700,
-//     type: "S3",
-//     adresse: "Sousse",
-//     link: "/offredetails/6",
-//   },
-//   {
-//     id: 7,
-//     image: "https://via.placeholder.com/300x200",
-//     title: "Appartement S1",
-//     description: "Compact et pratique",
-//     prix: 500,
-//     type: "S1",
-//     adresse: "Monastir",
-//     link: "/offredetails/7",
-//   },
-// ]
-interface OfferT {
+
+export interface OfferT {
   _id:string
   titre:string
   adresse:string
   description:string
   type:string
   prix:number
-  images:File[]
+  images: {
+    filename: string;
+    mimetype: string;
+    url:string
+  }[];
+  proprietaire: {
+    nom: string;
+    email: string;
+  };
 }
 
 const types = ["Chambre", "Studio", "S1", "S2", "S3", "S4", "S5"]
@@ -192,7 +129,7 @@ export default function OffersList() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-6 w-max">
         {currentOffers.length > 0 ? (
           currentOffers.map((offer) => ( 
-            <Link to={"xxx"} key={offer._id}>
+            <Link to={`/offredetails/${offer._id}`} key={offer._id}>
               <Card className="w-full h-full p-3 shadow-2xl hover:shadow-2xl hover:scale-[1.02] transition-all cursor-pointer">
 
                 <img

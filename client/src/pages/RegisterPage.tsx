@@ -46,13 +46,11 @@ export default function RegisterPage() {
     try {
       const response = await axios.post("http://localhost:5000/auth/register", userData)
       console.log("Inscription réussie :", response.data)
-      alert("Inscription réussie !")
-
       // reset
       setNom("");  setEmail(""); setTel(""); setAge(""); setCin(""); setPassword(""); setConfirmPassword("");setSelectedRole("");
 
       // Redirection
-      navigate("/") 
+      navigate("/login") 
 
     } catch (error: any) {
       if (error.response) {
@@ -185,7 +183,7 @@ export default function RegisterPage() {
             </CardContent>
             <CardFooter>
               <Button className="w-full" type="submit" >
-                Se connecter
+                Register
               </Button>
             </CardFooter>
             

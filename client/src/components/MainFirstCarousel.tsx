@@ -33,11 +33,14 @@ export default function Carousel1({offers}:{offers : OfferT[]}) {
     const container = containerRef.current
     if (!container) return
 
+    container.scrollLeft = 0;
+
     let isDown = false
     let startX = 0
     let scrollLeft = 0
 
     const startDragging = (e: MouseEvent | TouchEvent) => {
+      e.preventDefault(); // prevent default selection
       isDown = true
       startX = 'touches' in e ? e.touches[0].pageX : (e as MouseEvent).pageX
       scrollLeft = container.scrollLeft
@@ -72,7 +75,7 @@ export default function Carousel1({offers}:{offers : OfferT[]}) {
       container.removeEventListener("mousemove", onDrag)
       container.removeEventListener("touchmove", onDrag)
     }
-  }, [])
+  }, [offers])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -88,7 +91,7 @@ export default function Carousel1({offers}:{offers : OfferT[]}) {
       <div className="relative overflow-hidden">
         <div
           ref={containerRef}
-          className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+          className="flex w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar user-select-none cursor-grab active:cursor-grabbing"
         >
           {finalOffers.map((offer) => (
             <div
