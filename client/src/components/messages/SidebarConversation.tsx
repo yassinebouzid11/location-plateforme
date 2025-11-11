@@ -70,7 +70,7 @@ export function SidebarConversation() {
     try {
       const response = await axios.get(`http://localhost:5000/conversations/${loggedUser.id}`); 
       setConversations(response.data);
-      console.log(response.data);
+      console.log("sidebar data : "+response.data);
       
       } catch (err: any) {
       console.log(err.message || 'An error occurred');
@@ -117,7 +117,12 @@ export function SidebarConversation() {
   return (
     <div className="w-72 bg-white border-r h-full flex flex-col">
       <div className="p-4 border-b">
-        <div className="text-lg font-bold mb-2">Conversations</div>
+        <div className="flex justify-between items-center"> 
+          <div className="text-lg font-bold mb-2">Conversations</div>
+          <div  className="m-2">
+              <Button className="cursor-pointer" onClick={openAddConversation}>Nouveau</Button>
+          </div>
+        </div> 
         <Input
           placeholder="Search by nom..."
           value={search}
@@ -142,9 +147,7 @@ export function SidebarConversation() {
           <div className="p-4 text-gray-500 text-sm">No results found.</div>
         )}
       </div>
-      <div  className="self-end m-2">
-        <Button className="" onClick={openAddConversation}>Nouveau</Button>
-      </div>
+
       <Modal
               isOpen={isModalOpen}
               onRequestClose={closeModal}

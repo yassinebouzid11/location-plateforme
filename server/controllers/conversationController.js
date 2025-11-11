@@ -34,7 +34,7 @@ exports.findOrCreateConversation = async (req, res) => {
                 conversations.map(async (conv) => {
                     const otherUserId = conv.user1 === userId ? conv.user2 : conv.user1;
                     const otherUser = await User.findById(otherUserId).select("nom");
-
+                    console.log("otherUser data : "+otherUser);
                     return {
                     _id: conv._id,
                     otherUser: otherUser ? { _id: otherUser._id, nom: otherUser.nom } : null,

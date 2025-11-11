@@ -11,7 +11,7 @@ type Props = {
 export function MessageThread({ messages, currentUserId }: Props) {
   
   return (
-    <div className="flex flex-col gap-2 p-4 h-screen bg-white">
+    <div className="flex flex-col gap-2 p-4 h-full bg-white">
       {messages.map((msg) => (
         <MessageItem
           key={msg._id}

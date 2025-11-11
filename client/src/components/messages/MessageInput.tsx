@@ -17,7 +17,7 @@ export function MessageInput({ onSend }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-2 border-t p-4">
+    <div className="flex items-center gap-2 border-t mb-16 p-4">
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
