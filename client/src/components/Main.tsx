@@ -24,7 +24,7 @@ export  default function Main(){
   buttons : {
     primary: {
       text: "découvrez nos locations",
-      url: "/offers",
+      url: "/offres",
     },
     
   },

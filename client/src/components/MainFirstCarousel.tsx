@@ -102,7 +102,7 @@ export default function Carousel1({offers}:{offers : OfferT[]}) {
                 className={` rounded-xl border shadow-2xl hover:shadow-xl hover:scale-[1.02] transition-all duration-300 p-4 h-full ${offer.isPlus ? 'flex justify-center items-center bg-gray-300' : ''}`}
               >
                 {"isPlus" in offer ? (
-                  <a href="/Offers" className="text-6xl font-bold text-primary cursor-pointer">
+                  <a href="/Offres" className="text-6xl font-bold text-primary cursor-pointer">
                   +
                 </a> 
                 ) : (
